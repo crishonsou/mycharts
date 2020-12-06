@@ -1,0 +1,4 @@
+apiVersion: v1
+description: Web App Chart
+name: web-app-chart
+version: 0.1.0

@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: "2020-12-06T06:23:19Z"
+  generation: 1
+  labels:
+    app: web-app
+  name: web-app
+  namespace: default
+  resourceVersion: "18513"
+  selfLink: /apis/apps/v1/namespaces/default/deployments/web-app
+  uid: 8b76b6f0-6f7b-45ef-845c-dd8e2bc6dcae
+spec:
+  progressDeadlineSeconds: 600
+  replicas: {{ .Values.replicaCount }}
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: web-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: web-app
+    spec:
+      {{- if .Values.image.pullSecret }}
+            imagePullSecrets:
+              - name: "{{ .Values.image.pullSecret }}"
+      {{ end }}
+      containers:
+      - image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        name: web-app
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status: {}
+  

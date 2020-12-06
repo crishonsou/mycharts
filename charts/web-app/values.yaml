@@ -1,0 +1,45 @@
+replicaCount: 1
+
+image:
+  repository: docker.io/crishonsou/web-app
+  tag: latest
+  pullPolicy: IfNotPresent
+
+
+service:
+  type: NodePort
+ 
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: web-app
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+autoscaling:
+  enable: false
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+
+
+  
+
+  
+
+
+
+
+
+

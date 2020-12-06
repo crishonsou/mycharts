@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2020-12-06T06:23:19Z"
+  name: web-app
+  namespace: default
+  resourceVersion: "18500"
+  selfLink: /api/v1/namespaces/default/services/web-app
+  uid: a4552814-45ad-4144-ad50-fc3f15a01e6e
+spec:
+  clusterIP: 
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: web-app
+    nodePort: 32255
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: web-app
+  sessionAffinity: None
+  type: "{{ .Values.service.type }}"
+status:
+  loadBalancer: {}
